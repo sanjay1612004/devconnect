@@ -1,6 +1,7 @@
 
 const mongoose=require("mongoose")
 const validator=require("validator")
+const jwt=require("jsonwebtoken")
 //schema level validation
 const UserSchema=mongoose.Schema({
     firstName:{
@@ -59,6 +60,12 @@ const UserSchema=mongoose.Schema({
     }
 })
 
+UserSchema.methods.getJWT=async function(req,res){
+    const user=this
+    const token=await jwt.sign({UserId:user._id},"DevConnect@2026",{expiresIn:"1d"})
+    return token
+
+}
 const User=mongoose.model("User",UserSchema)
 module.exports=User
 
