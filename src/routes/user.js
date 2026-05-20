@@ -11,7 +11,7 @@ UserRouter.get("/user/request/recieved",auth,async(req,res)=>{
         const requests=await connectionRequest.find({
             toUserId:loggedInuser._id,
             status:"interested"
-        }).populate("fromUserId",["firstName","lastName","photoUrl","about","skills"])
+        }).populate("fromUserId",["firstName","lastName","photoUrl","about","Skills","Age","gender"])
         res.json({
             message:"connections requests",
             data:requests
@@ -31,8 +31,8 @@ UserRouter.get("/user/connections",auth,async(req,res)=>{
                 {fromUserId:loggedInUser._id,status:"accepted"},
 
             ]
-        }).populate("fromUserId",["firstName","lastName","photoUrl","about","skills"]).
-        populate("toUserId",["firstName","lastName","photoUrl","about","skills"])
+        }).populate("fromUserId",["firstName","lastName","photoUrl","about","Skills","Age","gender"]).
+        populate("toUserId",["firstName","lastName","photoUrl","about","Skills","Age","gender"])
         const data=requests.map(x=>{
             if(x.fromUserId._id.toString()==loggedInUser._id.toString()){
                 return x.toUserId
@@ -76,7 +76,7 @@ UserRouter.get("/feed",auth,async(req,res)=>{
                 {_id:{$nin:Array.from(hideuserfromfeed)}},
                 {_id:{$ne:loggedInUser._id}}
             ]
-        }).select("firstName lastName photoUrl about Skills").skip(skip).limit(limit)
+        }).select("firstName lastName photoUrl about Skills Age Gender").skip(skip).limit(limit)
         res.json(users)
     }
     catch(err){
