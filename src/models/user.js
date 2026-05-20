@@ -57,6 +57,9 @@ const UserSchema=mongoose.Schema({
     Skills:{
         type:[String],
         default:["js","react","python"]
+    },
+    Age:{
+        type:Number
     }
 })
 

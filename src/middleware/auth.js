@@ -16,7 +16,8 @@ const auth=async(req,res,next)=>{
     req.user=details
     next()
     }catch(err){
-        res.send("some err occured"+" "+err.message)
+        
+res.status(401).send("some err occured " + err.message)
     }
     
 }

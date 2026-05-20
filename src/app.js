@@ -5,10 +5,17 @@ const User=require("./models/user")
 const bcrypt=require("bcrypt")
 const cookieParser=require("cookie-parser")
 const {ValidateSignupData}=require("./utils/validation")
+const cors=require("cors")
 const jwt=require("jsonwebtoken")
 // const auth=require("./middleware/auth")
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials:true,
+    methods: ["GET","POST","PATCH","PUT","DELETE"]
+
+}))
 
 const profileRouter=require("./routes/profile")
 const requestRouter=require("./routes/request")
@@ -25,4 +32,3 @@ dbconnect().then(()=>{
     console.log("server is successfully running on port 3000")
 })
 }).catch(err=>console.log(err))
-

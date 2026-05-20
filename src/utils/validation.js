@@ -15,7 +15,7 @@ const ValidateSignupData=(req)=>{
 
 
 const ValidateEditProfileData=(req)=>{
-    const allowedEdits=["firstName","lastName","about","gender","photoUrl","Skills"]
+    const allowedEdits=["firstName","lastName","about","gender","photoUrl","Skills","Age"]
     const isEditAllowed=Object.keys(req.body).every((item)=>allowedEdits.includes(item))
     return isEditAllowed
 }
@@ -26,4 +26,4 @@ const ValidateEditPassword=(req)=>{
     return isEditAllowed
 }
 
-module.exports={ValidateSignupData,ValidateEditProfileData}
+module.exports={ValidateSignupData,ValidateEditProfileData,ValidateEditPassword}
